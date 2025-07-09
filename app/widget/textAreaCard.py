@@ -1,5 +1,5 @@
 # coding: utf-8
-from typing import Callable
+from typing import Callable, Optional
 
 from PySide6.QtWidgets import QHBoxLayout, QVBoxLayout, QWidget
 
@@ -17,11 +17,11 @@ class TextAreaCard(CardWidget):
         # need manually call init
 
     @__init__.register
-    def _(self, title: str, desc: str, parent=None):
+    def _(self, title: str, desc: str, parent: Optional[QWidget] = None):
         super().__init__(parent)
-        self.init(title=title, desc=desc)
+        self.init(title=title, desc=desc, parent=parent)
 
-    def init(self, title: str, desc: str):
+    def init(self, title: str, desc: str, parent: Optional[QWidget]):
         """Support manual init"""
 
         # create container
@@ -38,6 +38,7 @@ class TextAreaCard(CardWidget):
         self.titleDescContainer.addWidget(self.titleArea)
         self.titleDescContainer.addWidget(self.descArea)
         self.container.addLayout(self.titleDescContainer)
+        self.container.addStretch(1)
         self.container.addWidget(self.textArea)
 
         self.setLayout(self.container)
