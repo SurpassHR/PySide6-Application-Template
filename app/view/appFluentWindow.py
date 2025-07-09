@@ -14,10 +14,11 @@ from qfluentwidgets.components.navigation.navigation_widget import NavigationPus
 from ..common.levelDefs import LogLevels, MsgBoxLevels
 from ..common.simpleLogger import loggerPrint
 from ..common.configLoader import getConfig, setConfig
-from ..common.uiFunctionBase import UIFunctionBase
+from ..common.uiFunctionBase import uiFuncBase
+from ..view.page.examplePage import ExamplePage
 
 
-class AppFluentWindow(FluentWindow, UIFunctionBase): # 主窗口
+class AppFluentWindow(FluentWindow):
 
     APP_WIDTH = 1280
     APP_HEIGHT = 720
@@ -77,10 +78,11 @@ class AppFluentWindow(FluentWindow, UIFunctionBase): # 主窗口
         self.addPages()
 
         # bind main window to eventManger
-        self.uiSetMainWindow(self)
+        uiFuncBase.uiSetMainWindow(self)
 
     def addPages(self) -> None:
         # add your page here
+        self.addSubInterface(ExamplePage("_examplePage", self), FluentIcon.SETTING, "示例页面", NavigationItemPosition.SCROLL)
         self.addProjectMainPageHyperlink()
         self.addThemeChangingWidget()
 
@@ -117,14 +119,14 @@ class AppFluentWindow(FluentWindow, UIFunctionBase): # 主窗口
         def _rjktClose():
             loggerPrint("主窗口保持开启", level=LogLevels.INFO)
             e.ignore()
-        self.uiShowMsgBox(
+        uiFuncBase.uiShowMsgBox(
             level=MsgBoxLevels.INFO,
             msg="是否退出程序？",
             acptCbk=_acptClose,
             rjctCbk=_rjktClose,
         )
 
-    # 切换主题
+    # change theme
     def toggleTheme(self) -> None:
         key: str = "theme"
 

@@ -1,3 +1,4 @@
+# coding: utf-8
 from typing import Callable, Optional
 
 from PySide6.QtWidgets import QWidget
@@ -7,8 +8,11 @@ from ..common.levelDefs import LogLevels, MsgBoxLevels
 from ..common.configLoader import getConfig
 from ..common.eventManager import EventManager, EventEnum, EventFuncType
 
+from .singleton import singleton
+
 
 # 这里的全部信息都是每次从配置读取的，完全不使用缓存
+@singleton
 class UIFunctionBase:
     _singleton = None
 
@@ -48,7 +52,9 @@ class UIFunctionBase:
         EventManager.getSingleton().emitEvent(event, data)
 
     # 订阅事件
-    def uiSubscribe(self, event: EventEnum, handler: Callable, evtFuncType: EventFuncType) -> None:
+    def uiSubscribe(
+        self, event: EventEnum, handler: Callable, evtFuncType: EventFuncType
+    ) -> None:
         loggerPrint(f"订阅事件: {event.name}", level=LogLevels.INFO)
         EventManager.getSingleton().subscribe(event, handler, evtFuncType)
 
@@ -56,3 +62,6 @@ class UIFunctionBase:
     def uiUnsubscribe(self, event: EventEnum, handler: Callable) -> None:
         loggerPrint(f"取消订阅事件: {event.name}", level=LogLevels.INFO)
         EventManager.getSingleton().unsubscribe(event, handler)
+
+
+uiFuncBase = UIFunctionBase()
