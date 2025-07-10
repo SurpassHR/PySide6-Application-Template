@@ -1,6 +1,8 @@
-# PySide6 Application Template
+<div align="center">
+<img src="assets/images/banner.png" width=400px>
+</div>
 
-- 💡本项目是一个模板仓库，目的是为了更便捷地开发带有用户界面的小工具。
+- 💡本项目是一个模板仓库，目的是为了更便捷地开发带有用户界面的小工具。README 横幅使用 Flux Schnell 扩散模型生成。
 
 - 📓项目依赖:
 
