@@ -26,9 +26,7 @@ class EventFuncType(IntEnum):
 
 
 class EventEnum(IntEnum):
-    MAIN_PAGE_SAVE_URL = 1
-    MAIN_PAGE_SAVE_COOKIES = 2
-    MAIN_PAGE_EXEC_DOWNLOAD = 3
+    EXAMPLE_EVENT = 1
 
 
 class EventTask(QRunnable):

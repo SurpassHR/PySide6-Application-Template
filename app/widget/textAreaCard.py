@@ -52,3 +52,14 @@ class TextAreaCard(CardWidget):
         """Init text area content"""
 
         self.textArea.setText(func())
+
+
+class TextAreaCardExtra(TextAreaCard):
+    @singledispatchmethod
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+    @__init__.register
+    def _(self, title: str, desc: str, extraInit: Callable[[TextAreaCard], None], parent: Optional[QWidget]=None):
+        super().__init__(title=title, desc=desc, parent=parent)
+        extraInit(self)

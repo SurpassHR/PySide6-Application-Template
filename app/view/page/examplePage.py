@@ -1,7 +1,11 @@
 #coding: utf-8
 from PySide6.QtWidgets import QFrame, QVBoxLayout
 
-from ...widget.textAreaCard import TextAreaCard
+from qfluentwidgets import PrimaryPushButton, FluentIcon as Icon
+
+from ...widget.textAreaCard import TextAreaCard, TextAreaCardExtra
+from ...common.uiFunctionBase import uiFuncBase
+from ...common.levelDefs import MsgBoxLevels
 
 class ExamplePage(QFrame):
     def __init__(self, text: str, window):
@@ -15,21 +19,32 @@ class ExamplePage(QFrame):
         self.container = QVBoxLayout()
 
         # create a widget card
-        self.widgetCard1 = TextAreaCard(
+        def cardInit(card: TextAreaCard):
+            # create a button
+            btn = PrimaryPushButton(text="示例按钮", parent=card, icon=Icon.ACCEPT)
+            # when click btn get text area's content
+            btn.clicked.connect(lambda: uiFuncBase.uiShowMsgBox(level=MsgBoxLevels.INFO, msg=f"文本框的内容是: {card.textArea.text()}"))
+            # btn should be add to the end of card
+            card.container.addWidget(btn)
+
+        self.widgetCard1 = TextAreaCardExtra(
             title="带输入区域的卡片组件。",
             desc="可以在输入区域输入文字。",
+            extraInit=cardInit,
             parent=self,
         )
         self.widgetCard1.setMaximumHeight(100)
-        self.widgetCard2 = TextAreaCard(
+        self.widgetCard2 = TextAreaCardExtra(
             title="带输入区域的卡片组件。",
             desc="可以在输入区域输入文字。",
+            extraInit=cardInit,
             parent=self,
         )
         self.widgetCard2.setMaximumHeight(100)
-        self.widgetCard3 = TextAreaCard(
+        self.widgetCard3 = TextAreaCardExtra(
             title="带输入区域的卡片组件。",
             desc="可以在输入区域输入文字。",
+            extraInit=cardInit,
             parent=self,
         )
         self.widgetCard3.setMaximumHeight(100)
