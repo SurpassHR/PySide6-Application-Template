@@ -1,6 +1,8 @@
 <div align="center">
-<img src="assets/images/banner.png" width=400px>
+    <img src="assets/images/banner.png" width=400px>
 </div>
+
+## ✒️简介
 
 - 💡本项目是一个模板仓库，目的是为了更便捷地开发带有用户界面的小工具。README 横幅使用 Flux Schnell 扩散模型生成。
 
@@ -20,3 +22,11 @@
 - 🖼️`assets` 中存放项目的静态资源，例如图标等。
 
 - 🛠️`init_dev_env.sh` 用于初始化开发环境，主要是初始化 `venv` 环境、激活环境、安装 `requirements.txt` 中配置的依赖、配置 `.git/info/exclude` 中的文件黑名单（懒得配置 `.gitignore`，但是也会包含一个 `.gitignore` 文件）。
+
+## 📝Todo
+
+- [ ] 开发过程中逐步增加新的复杂组件。
+
+- [ ] 将自造轮子的 `simpleLogger` 替换为 `logging` 库。
+
+- [ ] 增加 `.github/workflows` 部署自动打包发布流程。
