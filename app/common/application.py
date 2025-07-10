@@ -8,7 +8,7 @@ from PySide6.QtWidgets import QApplication
 
 
 class SingletonApplication(QApplication):
-    """ Singleton application """
+    """Singleton application"""
 
     messageSig = Signal(object)
 
@@ -26,7 +26,7 @@ class SingletonApplication(QApplication):
         if self.memory.attach():
             self.isRunning = True
 
-            self.sendMessage(" ".join(argv[1:]) if len(argv) > 1 else 'show')
+            self.sendMessage(" ".join(argv[1:]) if len(argv) > 1 else "show")
             sys.exit()
 
         self.isRunning = False
@@ -43,7 +43,7 @@ class SingletonApplication(QApplication):
             socket.disconnectFromServer()
 
     def sendMessage(self, message: str):
-        """ send message to another application """
+        """send message to another application"""
         if not self.isRunning:
             return
 

@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding: utf-8
 import sys
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QApplication
@@ -19,7 +19,6 @@ from ..view.page.examplePage import ExamplePage
 
 
 class AppFluentWindow(FluentWindow):
-
     APP_WIDTH = 1280
     APP_HEIGHT = 720
 
@@ -69,7 +68,7 @@ class AppFluentWindow(FluentWindow):
 
         # set expanding sidebar as default
         self.navigationInterface.setMinimumExpandWidth(self.APP_WIDTH)
-        self.navigationInterface.expand(useAni = False)
+        self.navigationInterface.expand(useAni=False)
 
         # hide go back button
         self.navigationInterface.panel.setReturnButtonVisible(False)
@@ -82,13 +81,16 @@ class AppFluentWindow(FluentWindow):
 
     def addPages(self) -> None:
         # add your page here
-        self.addSubInterface(ExamplePage("_examplePage", self), FluentIcon.SETTING, "示例页面", NavigationItemPosition.SCROLL)
+        self.addSubInterface(
+            ExamplePage("_examplePage", self), FluentIcon.SETTING, "示例页面", NavigationItemPosition.SCROLL
+        )
         self.addProjectMainPageHyperlink()
         self.addThemeChangingWidget()
 
     def addProjectMainPageHyperlink(self) -> None:
         def _openProjectPage() -> None:
-            QDesktopServices.openUrl(QUrl("https://www.baidu.com")) # add your project link here
+            # add your project link here
+            QDesktopServices.openUrl(QUrl("https://www.baidu.com"))
 
         self.navigationInterface.addWidget(
             routeKey="projectMainPageHyperlink",
@@ -97,28 +99,26 @@ class AppFluentWindow(FluentWindow):
                 QImage("assets/icons/icon-github.png"),
             ),
             onClick=_openProjectPage,
-            position=NavigationItemPosition.BOTTOM
+            position=NavigationItemPosition.BOTTOM,
         )
 
     def addThemeChangingWidget(self) -> None:
         self.navigationInterface.addWidget(
             routeKey="themeNavigationButton",
-            widget=NavigationPushButton(
-                FluentIcon.CONSTRACT,
-                "主题切换",
-                False
-            ),
+            widget=NavigationPushButton(FluentIcon.CONSTRACT, "主题切换", False),
             onClick=self.toggleTheme,
-            position=NavigationItemPosition.BOTTOM
+            position=NavigationItemPosition.BOTTOM,
         )
 
     def closeEvent(self, e) -> None:
         def _acptClose():
             loggerPrint("主窗口已关闭", level=LogLevels.INFO)
             e.accept()
+
         def _rjktClose():
             loggerPrint("主窗口保持开启", level=LogLevels.INFO)
             e.ignore()
+
         uiFuncBase.uiShowMsgBox(
             level=MsgBoxLevels.INFO,
             msg="是否退出程序？",

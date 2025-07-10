@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding: utf-8
 import sys
 import platform
 
@@ -15,26 +15,31 @@ def _setAppAttrs():
     QApplication.setAttribute(Qt.ApplicationAttribute.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.ApplicationAttribute.AA_UseHighDpiPixmaps)
 
+
 def _isWindows11OrHigher():
-    if sys.platform.startswith('win'):
+    if sys.platform.startswith("win"):
         versionInfo = platform.version()
-        # win11 内部版本号为 10.0.22000
-        if int(versionInfo.split('.')[0]) >= 10 and int(versionInfo.split('.')[2]) >= 22000:
+        # win11 intern version number starts from 10.0.22000
+        if int(versionInfo.split(".")[0]) >= 10 and int(versionInfo.split(".")[2]) >= 22000:
             return True
     return False
+
 
 def _platformSettings(window: AppFluentWindow):
     window.setMicaEffectEnabled(True if _isWindows11OrHigher() else False)
     if sys.platform == "darwin":
         from AppKit import NSApplication
+
         NSApplication.sharedApplication()
+
 
 def startApp():
     _setAppAttrs()
 
     app = SingletonApplication(sys.argv, "DownloadXiaoeknowVideo")
 
-    window = AppFluentWindow(window_title="Change Me!") # set your window title here
+    # set your window title here
+    window = AppFluentWindow(window_title="Change Me!")
     _platformSettings(window=window)
     window.show()
 

@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding: utf-8
 from PySide6.QtWidgets import QFrame, QVBoxLayout
 
 from qfluentwidgets import PrimaryPushButton, FluentIcon as Icon
@@ -6,6 +6,7 @@ from qfluentwidgets import PrimaryPushButton, FluentIcon as Icon
 from ...widget.textAreaCard import TextAreaCard, TextAreaCardExtra
 from ...common.uiFunctionBase import uiFuncBase
 from ...common.levelDefs import MsgBoxLevels
+
 
 class ExamplePage(QFrame):
     def __init__(self, text: str, window):
@@ -23,7 +24,9 @@ class ExamplePage(QFrame):
             # create a button
             btn = PrimaryPushButton(text="示例按钮", parent=card, icon=Icon.ACCEPT)
             # when click btn get text area's content
-            btn.clicked.connect(lambda: uiFuncBase.uiShowMsgBox(level=MsgBoxLevels.INFO, msg=f"文本框的内容是: {card.textArea.text()}"))
+            btn.clicked.connect(
+                lambda: uiFuncBase.uiShowMsgBox(level=MsgBoxLevels.INFO, msg=f"文本框的内容是: {card.textArea.text()}")
+            )
             # btn should be add to the end of card
             card.container.addWidget(btn)
 

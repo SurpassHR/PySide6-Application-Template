@@ -1,3 +1,4 @@
+# coding: utf-8
 import sys
 
 from typing import Optional
@@ -21,8 +22,10 @@ from ..common.levelDefs import LogLevels
 
 
 class EventFuncType(IntEnum):
-    UI_DRAWING_EVENT = 1  # UI 绘制相关事件，不能在子线程中执行
-    TIME_CONSUMING_EVENT = 2  # 耗时操作相关事件，可以在子线程中执行
+    # UI 绘制相关事件，不能在子线程中执行
+    UI_DRAWING_EVENT = 1
+    # 耗时操作相关事件，可以在子线程中执行
+    TIME_CONSUMING_EVENT = 2
 
 
 class EventEnum(IntEnum):
@@ -138,9 +141,7 @@ class EventManager(QObject):
         self._signal.emit(event, data)
 
     # 订阅事件
-    def subscribe(
-        self, event: EventEnum, handler: Callable, evtFuncType: EventFuncType
-    ):
+    def subscribe(self, event: EventEnum, handler: Callable, evtFuncType: EventFuncType):
         if event not in self._eventCallbacks:
             self._eventCallbacks[event] = {}
         self._eventCallbacks[event][handler] = evtFuncType

@@ -52,9 +52,7 @@ class UIFunctionBase:
         EventManager.getSingleton().emitEvent(event, data)
 
     # 订阅事件
-    def uiSubscribe(
-        self, event: EventEnum, handler: Callable, evtFuncType: EventFuncType
-    ) -> None:
+    def uiSubscribe(self, event: EventEnum, handler: Callable, evtFuncType: EventFuncType) -> None:
         loggerPrint(f"订阅事件: {event.name}", level=LogLevels.INFO)
         EventManager.getSingleton().subscribe(event, handler, evtFuncType)
 
