@@ -19,9 +19,9 @@ class TextAreaCard(CardWidget):
     @__init__.register
     def _(self, title: str, desc: str, parent: Optional[QWidget] = None):
         super().__init__(parent)
-        self.init(title=title, desc=desc, parent=parent)
+        self.init(title=title, desc=desc)
 
-    def init(self, title: str, desc: str, parent: Optional[QWidget]):
+    def init(self, title: str, desc: str):
         """Support manual init"""
 
         # create container
@@ -29,7 +29,7 @@ class TextAreaCard(CardWidget):
         self.titleDescContainer = QVBoxLayout()
 
         # create title
-        self.titleArea = StrongBodyLabel(text=title)
+        self.titleArea = StrongBodyLabel(text=title, parent=self)
         # create description
         self.descArea = CaptionLabel(text=desc)
         # create text area
