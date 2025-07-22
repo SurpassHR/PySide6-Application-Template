@@ -26,7 +26,7 @@ LOG_LEVEL_AND_COLOR_MATCH: Dict[LogLevels, ANSIColors] = {
 
 LOG_MIN_LEVEL = getConfig("log_min_level", LogLevels.INFO.value)
 ROOT_DIR = str(Path(__file__).resolve().parent.parent.parent)  # 根据你的实际目录结构调整
-LOG_DIR = "gui-logs"
+LOG_DIR = "gui_logs"
 
 
 def loggerPrint(msg, level: LogLevels = LogLevels.INFO, frame=None) -> None:
