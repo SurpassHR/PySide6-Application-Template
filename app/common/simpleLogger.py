@@ -26,6 +26,7 @@ LOG_LEVEL_AND_COLOR_MATCH: Dict[LogLevels, ANSIColors] = {
 
 LOG_MIN_LEVEL = getConfig("log_min_level", LogLevels.INFO.value)
 ROOT_DIR = str(Path(__file__).resolve().parent.parent.parent)  # 根据你的实际目录结构调整
+LOG_DIR = "gui-logs"
 
 
 def loggerPrint(msg, level: LogLevels = LogLevels.INFO, frame=None) -> None:
@@ -39,7 +40,7 @@ def loggerPrint(msg, level: LogLevels = LogLevels.INFO, frame=None) -> None:
 
 def _writeToFile(msg, level, frame):
     msg = re.sub(r"\033\[[0-9]{1,}m", "", msg)
-    logFile = os.path.join("log", f"{getCurrTimeInFmt(fmt='%y-%m-%d')}.log")
+    logFile = os.path.join(LOG_DIR, f"{getCurrTimeInFmt(fmt='%y-%m-%d')}.log")
     absPath = os.path.abspath(logFile)
     parentFolder = os.path.dirname(absPath)
     if not os.path.exists(parentFolder):
