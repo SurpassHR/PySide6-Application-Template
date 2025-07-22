@@ -1,6 +1,11 @@
 # coding: utf-8
-from typing import Callable, Optional
+import os
+import sys
+from typing import Callable, Optional, Union
+from pathlib import Path
 
+from PySide6.QtGui import QDesktopServices
+from PySide6.QtCore import QUrl, QFileInfo, QDir, QProcess
 from PySide6.QtWidgets import QWidget
 
 from ..common.simpleLogger import loggerPrint
@@ -60,6 +65,55 @@ class UIFunctionBase:
     def uiUnsubscribe(self, event: EventEnum, handler: Callable) -> None:
         loggerPrint(f"取消订阅事件: {event.name}", level=LogLevels.INFO)
         EventManager.getSingleton().unsubscribe(event, handler)
+
+    def uiOpenURL(self, url: str):
+        if not url.startswith("http"):
+            if not os.path.exists(url):
+                return False
+
+            QDesktopServices.openUrl(QUrl.fromLocalFile(url))
+        else:
+            QDesktopServices.openUrl(QUrl(url))
+
+        return True
+
+    def showInFolder(self, path: Union[str, Path]):
+        """show file in file explorer"""
+        if not os.path.exists(path):
+            return False
+
+        if isinstance(path, Path):
+            path = str(path.absolute())
+
+        if not path or path.lower().startswith("http"):
+            return False
+
+        info = QFileInfo(path)  # type:QFileInfo
+        if sys.platform == "win32":
+            args = [QDir.toNativeSeparators(path)]
+            if not info.isDir():
+                args.insert(0, "/select,")
+
+            QProcess.startDetached("explorer", args)
+        elif sys.platform == "darwin":
+            args = [
+                "-e",
+                'tell application "Finder"',
+                "-e",
+                "activate",
+                "-e",
+                f'select POSIX file "{path}"',
+                "-e",
+                "end tell",
+                "-e",
+                "return",
+            ]
+            QProcess.execute("/usr/bin/osascript", args)
+        else:
+            url = QUrl.fromLocalFile(path if info.isDir() else info.path())
+            QDesktopServices.openUrl(url)
+
+        return True
 
 
 uiFuncBase = UIFunctionBase()

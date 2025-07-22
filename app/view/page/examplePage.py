@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QFrame, QVBoxLayout
 from qfluentwidgets import PrimaryPushButton, FluentIcon as Icon
 
 from ...widget.textAreaCard import TextAreaCard, TextAreaCardExtra
-from ...widget.progressCard import ProgressCard
+from ...widget.progressCard import LiveDownloadingTaskCard
 from ...common.uiFunctionBase import uiFuncBase
 from ...common.levelDefs import MsgBoxLevels
 
@@ -53,12 +53,9 @@ class ExamplePage(QFrame):
         )
         self.widgetCard3.setMaximumHeight(100)
 
-        self.progressCard = ProgressCard(
-            title="带进度条的卡片组件。",
-            fileIcon=Icon.QUICK_NOTE,
+        self.progressCard = LiveDownloadingTaskCard(
             parent=self,
         )
-        self.progressCard.updateProgress(50)
         self.progressCard.setMaximumHeight(100)
 
         self.container.addWidget(self.widgetCard1, 1)
